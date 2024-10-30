@@ -1,0 +1,67 @@
+{
+    "list": [
+        {
+            "tipo": "Comision",
+            "accion": "Apagar",
+            "objeto": "luz",
+            "tiempo": 10.482072830200196,
+            "nota": ""
+        },
+        {
+            "tipo": "Correcto",
+            "accion": "Coger",
+            "objeto": "cuaderno matematicas",
+            "tiempo": 14.389999389648438,
+            "nota": ""
+        },
+        {
+            "tipo": "Correcto",
+            "accion": "Guardar en mochila",
+            "objeto": "cuaderno matematicas",
+            "tiempo": 18.548824310302736,
+            "nota": ""
+        },
+        {
+            "tipo": "Orden",
+            "accion": "Coger",
+            "objeto": "lapiz",
+            "tiempo": 20.600000381469728,
+            "nota": ""
+        },
+        {
+            "tipo": "Orden",
+            "accion": "Guardar en mochila",
+            "objeto": "lapiz",
+            "tiempo": 36.029685974121097,
+            "nota": ""
+        },
+        {
+            "tipo": "Romper las normas",
+            "accion": "Coger",
+            "objeto": "cuchillo",
+            "tiempo": 57.52499771118164,
+            "nota": "Ha jugado irresponsablemente con el cuchillo, aunque se le indicó que no lo hiciera."
+        },
+        {
+            "tipo": "Repeticion",
+            "accion": "Coger",
+            "objeto": "cuaderno matematicas",
+            "tiempo": 82.52499389648438,
+            "nota": ""
+        },
+        {
+            "tipo": "Comision",
+            "accion": "Guardar en mochila",
+            "objeto": "cuaderno lengua",
+            "tiempo": 110.48207092285156,
+            "nota": ""
+        },
+        {
+            "tipo": "Omision",
+            "accion": "Guardar en mochila",
+            "objeto": "bocadillo",
+            "tiempo": 0.0,
+            "nota": "Le distrajeron los juguetes de su habitación y el sonido del teléfono."
+        }
+    ]
+}
