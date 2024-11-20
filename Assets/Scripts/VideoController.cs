@@ -14,7 +14,7 @@ public class VideoController : MonoBehaviour {
     // PÚBLICO //
     public Button pauseButton; // Botón de pausa.
     public TMP_InputField lapseField; // Campo para modificar notas de los errores.
-    public TextMeshProUGUI time_text; // Referencia al TextMeshPro
+    public TextMeshProUGUI time_text; // Referencia al TextMeshPro.
     public float time_lapse; // Por defecto, 10 segundos de lapso: 5 antes del evento y 5 después.
 
     // PRIVADO //

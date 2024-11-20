@@ -1,6 +1,7 @@
+using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -12,8 +13,8 @@ public class NotesController : MonoBehaviour {
 
     // PÚBLICO //
     public TMP_InputField inputField; // Campo para modificar notas de los errores.
-    public TextMeshProUGUI error_index; // Título de la nota
-    public TextMeshProUGUI error_save; // Título de la nota
+    public TextMeshProUGUI error_index; // Título de la nota.
+    public TextMeshProUGUI id_text; // Texto con el ID del paciente.
     public Button cancelButton; // Botón de cancelar.
     public Button confirmButton; // Botón de confirmar.
     public string jsonFilePath; // Ruta al archivo JSON.
@@ -23,7 +24,7 @@ public class NotesController : MonoBehaviour {
     public class ActionData { public string tipo; public string accion; public string objeto; public float tiempo; public string nota; }
 
     [System.Serializable]
-    public class ActionList { public ActionData[] list; }
+    public class ActionList { public string id_ejecucion; public ActionData[] list; }
 
     // PRIVADO //
     private ActionList actionList; // Para almacenar los datos deserializados.
@@ -42,12 +43,13 @@ public class NotesController : MonoBehaviour {
 
         if (File.Exists(jsonFilePath)) {
             string jsonString = File.ReadAllText(jsonFilePath);
+            id_text.text = "ID: " + JsonUtility.FromJson<ActionList>(jsonString).id_ejecucion;
             actionList = JsonUtility.FromJson<ActionList>(jsonString);
         } else { Debug.LogError("Archivo JSON no encontrado en la ruta " + jsonFilePath); }
 
     }
 
-    public void DisplayCurrentNote(int index, int number) {
+    public void DisplayCurrentNote(int index, int number, string error_name) {
 
         selectedErrorIndex = index;
         selectedActionIndex = number;
@@ -57,8 +59,7 @@ public class NotesController : MonoBehaviour {
         note.SetActive(true);
         
         // Cargar ventana de visualización con la nota correspondiente.
-        error_index.text = "Notas del error " + (index+1);
-        error_save.text = ("");
+        error_index.text = "Nota del error " + (index+1) + ": <i>«" + error_name + "</i>»";
         if (actionList != null && actionList.list.Length > selectedActionIndex) {
             inputField.text = actionList.list[selectedActionIndex].nota;
         } else { Debug.LogError("Índice de acción seleccionado fuera de rango o lista vacía."); }
@@ -99,12 +100,15 @@ public class NotesController : MonoBehaviour {
         note.SetActive(false);
     }
 
-    // Mostrar el texto, esperar 3 segundos y ocultar texto.
+    // Mostrar el texto, esperar 1.5 segundos y ocultar texto.
     private IEnumerator ShowText() {
 
-        error_save.text = ("(guardado)");
+        string temporal_string;
+
+        temporal_string = error_index.text;
+        error_index.text = temporal_string + " (guardado)";
         yield return new WaitForSeconds(1.5f);
-        error_save.text = ("");
+        error_index.text = temporal_string;
 
     }
 

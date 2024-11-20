@@ -14,6 +14,8 @@ public class LoadData : MonoBehaviour {
     // PÚBLICO //
     public Transform contentPanel; // Contenido del ScrollView.
     public GameObject listItemPrefab; // Referencia al prefab del elemento de la lista.
+    public GameObject button_type; // Botón que muestra el tipo de error.
+    public TextMeshProUGUI text_type; // Tipo del error a mostrar.
     public string filePath; // Ruta del archivo JSON.
 
     // PÚBLICO - OCULTO EN EL INSPECTOR //
@@ -89,29 +91,30 @@ public class LoadData : MonoBehaviour {
                 buttons.Add(button);
                 outlines.Add(outline);
 
-                // Agregar eventos al seleccionar los botones.
-                int index = i;
-                int number = n;
-                button.onClick.AddListener(() => OnButtonClick(index, number));
-                if (action.tipo != "Omision") { button.onClick.AddListener(() => videoController.PlayFromTo(action.tiempo)); }
-                else { button.onClick.AddListener(() => videoController.StopVideo()); }
-
                 // Obtener referencias a los textos e imágenes del nuevo elemento.
                 TextMeshProUGUI[] textFields = newListItem.GetComponentsInChildren<TextMeshProUGUI>();
                 RawImage noteImage = newListItem.GetComponentInChildren<RawImage>();
                 Image imageComponent = newListItem.GetComponent<Image>();
 
                 // Mostrar la información de los botones dependiendo de las acciones del JSON.
-                if (action.tipo == "Comision") { textFields[0].text = "COMISIÓN"; imageComponent.color = new Color32(238,89,131,255); }
-                else if (action.tipo == "Orden") { textFields[0].text = "ORDEN"; imageComponent.color = new Color32(188,33,77,255); }
-                else if (action.tipo == "Romper las normas") { textFields[0].text = "ROTURA DE NORMAS"; imageComponent.color = new Color32(166,15,45,255); }
-                else if (action.tipo == "Omision") { textFields[0].text = "OMISIÓN"; imageComponent.color = new Color32(135,6,6,255); textFields[2].text = ""; }
-                else if (action.tipo == "Repeticion") { textFields[0].text = "REPETICIÓN"; imageComponent.color = new Color32(89,4,25,255); }
-                if (action.tipo != "Omision") { textFields[2].text = CalculateTime(action.tiempo); }
-                textFields[1].text = action.accion + " " + action.objeto;
+                if (action.tipo == "Comision") { imageComponent.color = new Color32(238,89,131,255); }
+                else if (action.tipo == "Orden") { imageComponent.color = new Color32(188,33,77,255); }
+                else if (action.tipo == "Romper las normas") { imageComponent.color = new Color32(166,15,45,255); }
+                else if (action.tipo == "Omision") { imageComponent.color = new Color32(135,6,6,255); textFields[1].text = "(acción omitida)"; }
+                else if (action.tipo == "Repeticion") { imageComponent.color = new Color32(89,4,25,255); }
+
+                if (action.tipo != "Omision") { textFields[1].text = CalculateTime(action.tiempo); }
+                textFields[0].text = action.accion + " " + action.objeto;
 
                 // Desactivar imágenes donde no haya notas.
                 if (action.nota == "") { noteImage.enabled = false; }
+
+                // Agregar eventos al seleccionar los botones.
+                int index = i;
+                int number = n;
+                button.onClick.AddListener(() => OnButtonClick(index, number, textFields[0].text, action.tipo, imageComponent));
+                if (action.tipo != "Omision") { button.onClick.AddListener(() => videoController.PlayFromTo(action.tiempo)); }
+                else { button.onClick.AddListener(() => videoController.StopVideo()); }
 
                 i++;
 
@@ -124,12 +127,16 @@ public class LoadData : MonoBehaviour {
     }
 
     // Método para ejecutar lo que sucede al pulsar uno de los botones con errores.
-    void OnButtonClick(int index, int number) {
+    void OnButtonClick(int index, int number, string error_name, string error_type, Image error_color) {
 
         if (selectedButtonIndex >= 0) { outlines[selectedButtonIndex].effectColor = defaultColor; } // Revertir el color del botón previamente seleccionado.
         outlines[index].effectColor = selectedColor; // Establecer el color del botón recién seleccionado.
         selectedButtonIndex = index; // Actualizar el índice del botón seleccionado.
-        notesController.DisplayCurrentNote(index, number);
+        notesController.DisplayCurrentNote(index, number, error_name);
+
+        text_type.text = "Error de tipo «" + error_type + "»";
+        Image color_type = button_type.GetComponent<Image>();
+        color_type.color = error_color.color;
 
     }
 
