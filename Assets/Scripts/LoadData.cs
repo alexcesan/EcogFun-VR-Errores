@@ -97,11 +97,11 @@ public class LoadData : MonoBehaviour {
                 Image imageComponent = newListItem.GetComponent<Image>();
 
                 // Mostrar la información de los botones dependiendo de las acciones del JSON.
-                if (action.tipo == "Comision") { imageComponent.color = new Color32(238,89,131,255); }
-                else if (action.tipo == "Orden") { imageComponent.color = new Color32(188,33,77,255); }
-                else if (action.tipo == "Romper las normas") { imageComponent.color = new Color32(166,15,45,255); }
-                else if (action.tipo == "Omision") { imageComponent.color = new Color32(135,6,6,255); textFields[1].text = "(acción omitida)"; }
-                else if (action.tipo == "Repeticion") { imageComponent.color = new Color32(89,4,25,255); }
+                if (action.tipo == "Comision") { imageComponent.color = new Color32(255,175,155,255); }
+                else if (action.tipo == "Orden") { imageComponent.color = new Color32(240,90,75,255); }
+                else if (action.tipo == "Romper las normas") { imageComponent.color = new Color32(180,50,90,255); }
+                else if (action.tipo == "Omision") { imageComponent.color = new Color32(150,10,40,255); textFields[1].text = "(acción omitida)"; }
+                else if (action.tipo == "Repeticion") { imageComponent.color = new Color32(90,0,24,255); }
 
                 if (action.tipo != "Omision") { textFields[1].text = CalculateTime(action.tiempo); }
                 textFields[0].text = action.accion + " " + action.objeto;
@@ -114,7 +114,7 @@ public class LoadData : MonoBehaviour {
                 int number = n;
                 button.onClick.AddListener(() => OnButtonClick(index, number, textFields[0].text, action.tipo, imageComponent));
                 if (action.tipo != "Omision") { button.onClick.AddListener(() => videoController.PlayFromTo(action.tiempo)); }
-                else { button.onClick.AddListener(() => videoController.StopVideo()); }
+                else { button.onClick.AddListener(() => videoController.StopVideos()); }
 
                 i++;
 
