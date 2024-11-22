@@ -55,7 +55,7 @@ public class VideoController : MonoBehaviour {
         init_time = start_time - time_lapse / 2;
         end_time = start_time + time_lapse / 2;
 
-        StopVideos();
+        TogglePause();
         videoPlayer1.time = init_time;
         videoPlayer2.time = init_time;
         pauseButton.gameObject.SetActive(true);

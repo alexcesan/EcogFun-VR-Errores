@@ -10,13 +10,13 @@ public class LoadData : MonoBehaviour {
     // PÚBLICO - SCRIPTS //
     public VideoController videoController; // Referencia a VideoController.
     public NotesController notesController; // Referencia a NotesController.
+    public SceneInitializer sceneInitializer; // Referencia a SceneInitializer.
 
     // PÚBLICO //
     public Transform contentPanel; // Contenido del ScrollView.
     public GameObject listItemPrefab; // Referencia al prefab del elemento de la lista.
     public GameObject button_type; // Botón que muestra el tipo de error.
     public TextMeshProUGUI text_type; // Tipo del error a mostrar.
-    public string filePath; // Ruta del archivo JSON.
 
     // PÚBLICO - OCULTO EN EL INSPECTOR //
     [HideInInspector]
@@ -41,9 +41,9 @@ public class LoadData : MonoBehaviour {
     private Color selectedColor = Color.yellow; // Color del borde cuando el botón está seleccionado.
     private int selectedButtonIndex = -1; // Índice del botón actualmente seleccionado.
 
-    void Awake() {
+    void Start() {
 
-        string json = File.ReadAllText(filePath); // Cargar el archivo JSON.
+        string json = File.ReadAllText(sceneInitializer.GetErrors()); // Cargar el archivo JSON.
         ActionList actionList = JsonUtility.FromJson<ActionList>(json); // Deserializar el JSON en una lista de acciones.
         CountActions(actionList.list); // Contar las acciones de cada tipo.
         ScrollView(actionList.list); // Llenar la lista con los elementos del JSON.

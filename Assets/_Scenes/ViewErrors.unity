@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2162,8 +2162,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
+    m_PressedColor: {r: 0.8196079, g: 0.8196079, b: 0.8196079, a: 1}
     m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2183,7 +2183,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 662960873}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: 
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &662960873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2747,7 +2759,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 759859700}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9997803
+  m_Size: 0.9999641
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3758,7 +3770,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -6, y: 0.02301234}
+  m_AnchoredPosition: {x: -6, y: -0.0025863647}
   m_SizeDelta: {x: 183, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1123576218
@@ -4871,21 +4883,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1297432133
-Transform:
+--- !u!224 &1297432133
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297432132}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 479.00137, y: 347.00186, z: -859.00903}
+  m_LocalPosition: {x: 0, y: 0, z: -859.00903}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 479.00137, y: 347.00186}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1297432134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4898,6 +4914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efca767a937d01459686eb8abbfb951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fileNameConfigJson: {fileID: 4900000, guid: caf517568bf7c1144a525beb202440c5, type: 3}
   videoPlayer1: {fileID: 801797731}
   videoPlayer2: {fileID: 1770647895}
 --- !u!1 &1326773567
@@ -7283,7 +7300,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.03757171, y: 0.033986464}
+  m_AnchoredPosition: {x: -0.03757171, y: 0.007939683}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1833739568
@@ -7495,11 +7512,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   videoController: {fileID: 1403358488}
   notesController: {fileID: 2138032334}
+  sceneInitializer: {fileID: 1297432134}
   contentPanel: {fileID: 1123576217}
   listItemPrefab: {fileID: 7714683019908527826, guid: edd7de4143803d54491538b424701812, type: 3}
   button_type: {fileID: 1172211395}
   text_type: {fileID: 1912226997}
-  filePath: Assets/Resources/errores_ejemplo.json
   actionCounts: 000000000000000000000000000000000000000000000000
   correctCounts: 0000000000000000
   buttons: []
