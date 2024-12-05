@@ -17,7 +17,6 @@ public class NotesController : MonoBehaviour {
     public TextMeshProUGUI id_text; // Texto con el ID del paciente.
     public Button cancelButton; // Botón de cancelar.
     public Button confirmButton; // Botón de confirmar.
-    public string jsonFilePath; // Ruta al archivo JSON.
 
     // PÚBLICO - SERIALIZABLE //
     [System.Serializable]
@@ -29,9 +28,11 @@ public class NotesController : MonoBehaviour {
     // PRIVADO //
     private ActionList actionList; // Para almacenar los datos deserializados.
     private int selectedErrorIndex, selectedActionIndex; // Posición del evento seleccionado según error o acción.
+    private string jsonFilePath; // Ruta al archivo JSON.
 
-    public void StartNC() {
+    public void StartNC(string jsonPath) {
 
+        jsonFilePath = jsonPath;
         HideCurrentNote();
         ReadJson(); // Leer y deserializar el JSON al inicio.
         confirmButton.onClick.AddListener(OnConfirmButtonClicked); // Agrega el listener al botón de confirmación.

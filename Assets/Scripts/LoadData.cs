@@ -56,6 +56,9 @@ public class LoadData : MonoBehaviour {
     // Método para contar las acciones de cada tipo.
     void CountActions(ActionData[] actions) {
 
+        for (int i = 0; i < actionCounts.Length; i++) { actionCounts[i] = 0; }
+        for (int i = 0; i < correctCounts.Length; i++) { correctCounts[i] = 0; }
+
         foreach (ActionData action in actions) {
             switch (action.tipo) {
                 case "Correcto": actionCounts[0]++; correctCounts[0]++; break;

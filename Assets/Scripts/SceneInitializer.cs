@@ -19,6 +19,18 @@ public class SceneInitializer : MonoBehaviour {
     private string video1Path;
     private string video2Path;
     private string erroresJsonPath;
+    private string jsonContent;
+
+    void Start() {
+        // Mantener GameObjects desactivados al inicio
+        video_controller.pauseButton.gameObject.SetActive(false);
+        video_controller.lapseField.gameObject.SetActive(false);
+        video_controller.closeButton.gameObject.SetActive(false);
+        video_controller.background_focus.gameObject.SetActive(false);
+        video_controller.pausefocusButton.gameObject.SetActive(false);
+        video_controller.timefocus_text.gameObject.SetActive(false);
+        video_controller.lapsefocus_text.gameObject.SetActive(false);
+    }
 
     public void LoadJson(FileManager.FileNameConfig fileNames) {
 
@@ -61,9 +73,7 @@ public class SceneInitializer : MonoBehaviour {
 
             // Cargar el archivo JSON de errores
             if (File.Exists(erroresJsonPath)) {
-                string jsonContent = File.ReadAllText(erroresJsonPath);
-                Debug.Log("Archivo JSON de errores cargado correctamente. Contenido:");
-                Debug.Log(jsonContent);
+                Debug.Log("Archivo JSON de errores cargado correctamente.");
             } else { Debug.LogWarning($"El archivo JSON de errores no existe en la ruta: {erroresJsonPath}"); }
 
         } catch (Exception e) { Debug.LogError($"Error al cargar los recursos: {e.Message}"); }
@@ -71,7 +81,7 @@ public class SceneInitializer : MonoBehaviour {
         load_data.AwakeLD();
         piechart_controller1.StartPC();
         piechart_controller2.StartPC();
-        notes_controller.StartNC();
+        notes_controller.StartNC(erroresJsonPath);
         video_controller.StartVC();
 
     }

@@ -16,6 +16,4 @@ public class VisualizadorErrores : MonoBehaviour {
 
     public void cargaJson() { StartCoroutine(file_manager.CargarJsonCorrutina(this)); }
 
-    // public void cargaJsonCallback() { }
-
 }

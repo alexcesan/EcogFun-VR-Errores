@@ -48,15 +48,6 @@ public class VideoController : MonoBehaviour {
         pause_list = pauseButton.GetComponentsInChildren<RawImage>();
         pausefocus_list = pausefocusButton.GetComponentsInChildren<RawImage>();
 
-        // Mantener GameObjects desactivados al inicio
-        pauseButton.gameObject.SetActive(false);
-        lapseField.gameObject.SetActive(false);
-        closeButton.gameObject.SetActive(false);
-        background_focus.gameObject.SetActive(false);
-        pausefocusButton.gameObject.SetActive(false);
-        timefocus_text.gameObject.SetActive(false);
-        lapsefocus_text.gameObject.SetActive(false);
-
         // Guardar tamaño y posición original de los vídeos
         originalSize1 = video1Rect.sizeDelta;
         originalPosition1 = video1Rect.anchoredPosition;
@@ -71,8 +62,8 @@ public class VideoController : MonoBehaviour {
         if (isPlaying && !canReplay && videoPlayer1.time < end_time && videoPlayer1.time >= start_time) { canReplay = true; }
 
         // Actualizar icono de pausa
-        //if (isPlaying) { pause_list[0].enabled = false; pause_list[1].enabled = true; pausefocus_list[0].enabled = false; pausefocus_list[1].enabled = true; }
-        //else { pause_list[0].enabled = true; pause_list[1].enabled = false; pausefocus_list[0].enabled = true; pausefocus_list[1].enabled = false; }
+        if (isPlaying && pause_list != null) { pause_list[0].enabled = false; pause_list[1].enabled = true; pausefocus_list[0].enabled = false; pausefocus_list[1].enabled = true; }
+        else if (pause_list != null) { pause_list[0].enabled = true; pause_list[1].enabled = false; pausefocus_list[0].enabled = true; pausefocus_list[1].enabled = false; }
 
         // Actualizar el tiempo mostrado en pantalla
         float currentTime = (float)videoPlayer1.time;
@@ -141,7 +132,7 @@ public class VideoController : MonoBehaviour {
     }
 
     public void ToggleFullScreen() {
-        if (isFullScreen) {
+        if (isFullScreen && canReplay == true) {
             // Volver a la posición original
             video1Rect.sizeDelta = originalSize1;
             video1Rect.anchoredPosition = originalPosition1;
@@ -153,7 +144,7 @@ public class VideoController : MonoBehaviour {
             pausefocusButton.gameObject.SetActive(false);
             timefocus_text.gameObject.SetActive(false);
             lapsefocus_text.gameObject.SetActive(false);
-        } else {
+        } else if (canReplay == true) {
             // Pasar a fullscreen
             video1Rect.sizeDelta = fullscreenSize;
             video1Rect.anchoredPosition = fullscreenVideo1Position;

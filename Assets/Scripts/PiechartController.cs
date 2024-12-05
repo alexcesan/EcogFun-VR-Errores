@@ -32,23 +32,28 @@ public class PiechartController : MonoBehaviour {
             counts = loadData.actionCounts; // Lectura del JSON para dividir entre seis tipos de acciones.
 
             // Textos que muestran el conteo de los eventos.
-            textCounter[0].text = counts[0].ToString() + " aciertos";
-            textCounter[1].text = counts[1].ToString() + " comisiones";
-            textCounter[2].text = counts[2].ToString() + " actos desordenados";
-            textCounter[3].text = counts[3].ToString() + " roturas de normas";
-            textCounter[4].text = counts[4].ToString() + " omisiones";
-            textCounter[5].text = counts[5].ToString() + " repeticiones";
-            /*textCounter[0].text = "Correctas: " + counts[0].ToString(); textCounter[1].text = "Comisión: " + counts[1].ToString(); textCounter[2].text = "Orden: " + counts[2].ToString();
-            textCounter[3].text = "Normas: " + counts[3].ToString(); textCounter[4].text = "Omisión: " + counts[4].ToString(); textCounter[5].text = "Repetición: " + counts[5].ToString();*/
+            if (counts[0] > 1) { textCounter[0].text = counts[0].ToString() + " aciertos"; }
+            else { textCounter[0].text = "1 acierto"; }
+            if (counts[1] > 1) { textCounter[1].text = counts[1].ToString() + " comisiones"; }
+            else { textCounter[1].text = "1 comisión"; }
+            if (counts[2] > 1) { textCounter[2].text = counts[2].ToString() + " errores de orden"; }
+            else { textCounter[2].text = "1 error de orden"; }
+            if (counts[3] > 1) { textCounter[3].text = counts[3].ToString() + " roturas de normas"; }
+            else { textCounter[3].text = "1 rotura de normas"; }
+            if (counts[4] > 1) { textCounter[4].text = counts[4].ToString() + " omisiones"; }
+            else { textCounter[4].text = "1 omisión"; }
+            if (counts[5] > 1) { textCounter[5].text = counts[5].ToString() + " repeticiones"; }
+            else { textCounter[5].text = "1 repetición"; }
 
         } else {
         
             counts = loadData.correctCounts; // Lectura del JSON para dividir entre aciertos y fallos.
 
             // Textos que muestran el conteo de los eventos.
-            textCounter[0].text = counts[0].ToString() + " aciertos";
-            textCounter[1].text = counts[1].ToString() + " fallos";
-            /*textCounter[0].text = "Aciertos: " + counts[0].ToString(); textCounter[1].text = "Fallos: " + counts[1].ToString();*/
+            if (counts[0] > 1) { textCounter[0].text = counts[0].ToString() + " aciertos"; }
+            else { textCounter[0].text = "1 acierto"; }
+            if (counts[1] > 1) { textCounter[1].text = counts[1].ToString() + " fallos"; }
+            else { textCounter[1].text = "1 fallo"; }
 
         }
 
