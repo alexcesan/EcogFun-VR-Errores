@@ -21,7 +21,7 @@ public class InputHandler : MonoBehaviour {
         string inputText = inputField.text; // Toma la entrada del Input Field.
         int inputNumber; // Convierte el texto de la entrada en un número entero.
 
-        if (int.TryParse(inputText, out inputNumber)) { videoController.PlayNewLapse(inputNumber); }
+        if (int.TryParse(inputText, out inputNumber)) { videoController.NewLapse(inputNumber); }
         else { Debug.Log("Invalid input. Please enter a valid number."); }
 
     }

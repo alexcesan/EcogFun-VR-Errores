@@ -114,7 +114,7 @@ public class LoadData : MonoBehaviour {
                 int number = n;
                 button.onClick.AddListener(() => OnButtonClick(index, number, textFields[0].text, action.tipo, imageComponent));
                 if (action.tipo != "Omision") { button.onClick.AddListener(() => videoController.PlayFromTo(action.tiempo)); }
-                else { button.onClick.AddListener(() => videoController.TogglePause()); }
+                else { button.onClick.AddListener(() => videoController.Omision()); }
 
                 i++;
 
@@ -143,13 +143,9 @@ public class LoadData : MonoBehaviour {
     // Método para convertir el tiempo en segundos en un string con el formato "0min 0s".
     public string CalculateTime(float timeElapsed) {
 
-        string conversionText;
-        int minutes, seconds;
-
-        minutes = Mathf.FloorToInt(timeElapsed / 60); 
-        seconds = Mathf.FloorToInt(timeElapsed % 60);
-        conversionText = string.Format("{0:0}min {1:0}s", minutes, seconds);
-        return conversionText;
+        int minutes = Mathf.FloorToInt(timeElapsed / 60); 
+        int seconds = Mathf.FloorToInt(timeElapsed % 60);
+        return string.Format("{0:0}min {1:0}s", minutes, seconds);
 
     }
 

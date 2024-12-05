@@ -59,14 +59,12 @@ public class SceneInitializer : MonoBehaviour {
         // Cargar el primer vídeo
         if (File.Exists(video1Path)) {
             videoPlayer1.url = video1Path;
-            videoPlayer1.Prepare();
             Debug.Log($"Vídeo 1 cargado correctamente desde: {video1Path}");
         } else { Debug.LogWarning($"El archivo de vídeo 1 no existe en la ruta: {video1Path}"); }
 
         // Cargar el segundo vídeo
         if (File.Exists(video2Path)) {
             videoPlayer2.url = video2Path;
-            videoPlayer2.Prepare();
             Debug.Log($"Vídeo 2 cargado correctamente desde: {video2Path}");
         } else { Debug.LogWarning($"El archivo de vídeo 2 no existe en la ruta: {video2Path}"); }
 
