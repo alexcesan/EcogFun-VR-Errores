@@ -41,7 +41,7 @@ public class LoadData : MonoBehaviour {
     private Color selectedColor = Color.yellow; // Color del borde cuando el botón está seleccionado.
     private int selectedButtonIndex = -1; // Índice del botón actualmente seleccionado.
 
-    void Start() {
+    void Awake() {
 
         string json = File.ReadAllText(sceneInitializer.GetErrors()); // Cargar el archivo JSON.
         ActionList actionList = JsonUtility.FromJson<ActionList>(json); // Deserializar el JSON en una lista de acciones.
@@ -114,7 +114,7 @@ public class LoadData : MonoBehaviour {
                 int number = n;
                 button.onClick.AddListener(() => OnButtonClick(index, number, textFields[0].text, action.tipo, imageComponent));
                 if (action.tipo != "Omision") { button.onClick.AddListener(() => videoController.PlayFromTo(action.tiempo)); }
-                else { button.onClick.AddListener(() => videoController.StopVideos()); }
+                else { button.onClick.AddListener(() => videoController.TogglePause()); }
 
                 i++;
 

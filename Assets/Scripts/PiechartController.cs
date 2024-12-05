@@ -28,6 +28,7 @@ public class PiechartController : MonoBehaviour {
 
         // Obtenemos la cantidad de eventos de cada tipo.
         if (pieChart.name == "piechart_1") {
+
             counts = loadData.actionCounts; // Lectura del JSON para dividir entre seis tipos de acciones.
 
             // Textos que muestran el conteo de los eventos.
