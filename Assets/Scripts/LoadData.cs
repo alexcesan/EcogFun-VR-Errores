@@ -41,7 +41,7 @@ public class LoadData : MonoBehaviour {
     private Color selectedColor = Color.yellow; // Color del borde cuando el botón está seleccionado.
     private int selectedButtonIndex = -1; // Índice del botón actualmente seleccionado.
 
-    void Awake() {
+    public void AwakeLD() {
 
         string json = File.ReadAllText(sceneInitializer.GetErrors()); // Cargar el archivo JSON.
         ActionList actionList = JsonUtility.FromJson<ActionList>(json); // Deserializar el JSON en una lista de acciones.

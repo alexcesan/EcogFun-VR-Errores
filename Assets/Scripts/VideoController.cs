@@ -12,7 +12,7 @@ public class VideoController : MonoBehaviour {
     public VideoPlayer videoPlayer2; // Segundo VideoPlayer
 
     // PÚBLICO //
-    public Button pauseButton; // Botón de pausa
+    public Button pauseButton, pausefocusButton; // Botón de pausa
     public Button closeButton; // Botón para salir del modo pantalla completa
     public TMP_InputField lapseField; // Campo para modificar notas de los errores
     public TextMeshProUGUI time_text, timefocus_text, lapsefocus_text; // Referencias a los TextMeshPro
@@ -26,7 +26,7 @@ public class VideoController : MonoBehaviour {
     public Vector2 fullscreenVideo2Position = new Vector2(0, -200); // Posición del segundo vídeo
 
     // PRIVADO //
-    private RawImage[] pause_list;
+    private RawImage[] pause_list, pausefocus_list;
     private float begin_time, start_time, end_time;
     private int minutes, seconds;
     private bool isPlaying = false;
@@ -37,7 +37,7 @@ public class VideoController : MonoBehaviour {
     private float lastClickTime = 0f; // Tiempo del último clic para detectar doble clic
     private const float doubleClickThreshold = 0.3f; // Tiempo límite para doble clic (en segundos)
 
-    void Start() {
+    public void StartVC() {
         videoPlayer1.prepareCompleted += OnVideoPrepared;
         videoPlayer2.prepareCompleted += OnVideoPrepared;
 
@@ -46,12 +46,14 @@ public class VideoController : MonoBehaviour {
         videoPlayer2.Prepare();
 
         pause_list = pauseButton.GetComponentsInChildren<RawImage>();
+        pausefocus_list = pausefocusButton.GetComponentsInChildren<RawImage>();
 
         // Mantener GameObjects desactivados al inicio
         pauseButton.gameObject.SetActive(false);
         lapseField.gameObject.SetActive(false);
         closeButton.gameObject.SetActive(false);
         background_focus.gameObject.SetActive(false);
+        pausefocusButton.gameObject.SetActive(false);
         timefocus_text.gameObject.SetActive(false);
         lapsefocus_text.gameObject.SetActive(false);
 
@@ -69,8 +71,8 @@ public class VideoController : MonoBehaviour {
         if (isPlaying && !canReplay && videoPlayer1.time < end_time && videoPlayer1.time >= start_time) { canReplay = true; }
 
         // Actualizar icono de pausa
-        if (isPlaying) { pause_list[0].enabled = false; pause_list[1].enabled = true; }
-        else { pause_list[0].enabled = true; pause_list[1].enabled = false; }
+        //if (isPlaying) { pause_list[0].enabled = false; pause_list[1].enabled = true; pausefocus_list[0].enabled = false; pausefocus_list[1].enabled = true; }
+        //else { pause_list[0].enabled = true; pause_list[1].enabled = false; pausefocus_list[0].enabled = true; pausefocus_list[1].enabled = false; }
 
         // Actualizar el tiempo mostrado en pantalla
         float currentTime = (float)videoPlayer1.time;
@@ -83,6 +85,9 @@ public class VideoController : MonoBehaviour {
         begin_time = init_time;
         start_time = init_time - (time_lapse / 2);
         end_time = init_time + (time_lapse / 2);
+
+        if (start_time <= 0.0f) { start_time = 0.0f; } // Si marca inicial es negativa
+        if (end_time >= videoPlayer1.length) { end_time = (float)videoPlayer1.length; } // Si marca final sobrepasa la duración del vídeo
 
         // Desactivar el bucle temporalmente si estamos fuera del rango
         if (videoPlayer1.time >= end_time || videoPlayer2.time >= end_time) { canReplay = false; }
@@ -145,6 +150,7 @@ public class VideoController : MonoBehaviour {
 
             closeButton.gameObject.SetActive(false);
             background_focus.gameObject.SetActive(false);
+            pausefocusButton.gameObject.SetActive(false);
             timefocus_text.gameObject.SetActive(false);
             lapsefocus_text.gameObject.SetActive(false);
         } else {
@@ -158,6 +164,7 @@ public class VideoController : MonoBehaviour {
 
             closeButton.gameObject.SetActive(true);
             background_focus.gameObject.SetActive(true);
+            pausefocusButton.gameObject.SetActive(true);
             timefocus_text.gameObject.SetActive(true);
             lapsefocus_text.gameObject.SetActive(true);
         }

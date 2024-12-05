@@ -30,7 +30,7 @@ public class NotesController : MonoBehaviour {
     private ActionList actionList; // Para almacenar los datos deserializados.
     private int selectedErrorIndex, selectedActionIndex; // Posición del evento seleccionado según error o acción.
 
-    void Start() {
+    public void StartNC() {
 
         HideCurrentNote();
         ReadJson(); // Leer y deserializar el JSON al inicio.

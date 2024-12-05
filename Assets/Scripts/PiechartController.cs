@@ -20,7 +20,7 @@ public class PiechartController : MonoBehaviour {
     private int[] counts = new int[6];
     private float[] listPercentage = new float[6];
 
-    void Start() {
+    public void StartPC() {
 
         GameObject pieChart = this.gameObject;
 
