@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/ViewErrors.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/_Scenes/ExitScene.unity
+    guid: 47dd9e7d00ab2e3419bd4bf0b82b4daa
   m_configObjects: {}

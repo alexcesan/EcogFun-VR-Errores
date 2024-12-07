@@ -22,20 +22,22 @@ public class SceneInitializer : MonoBehaviour {
     private string jsonContent;
 
     void Start() {
-        // Mantener GameObjects desactivados al inicio
-        video_controller.pauseButton.gameObject.SetActive(false);
-        video_controller.lapseField.gameObject.SetActive(false);
-        video_controller.closeButton.gameObject.SetActive(false);
-        video_controller.background_focus.gameObject.SetActive(false);
-        video_controller.pausefocusButton.gameObject.SetActive(false);
-        video_controller.timefocus_text.gameObject.SetActive(false);
-        video_controller.lapsefocus_text.gameObject.SetActive(false);
+    
+        video_controller.SetInactive();
+    
+        // Determinar la ruta de la carpeta donde están los archivos (y crearla si no existe)
+        basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "EcogFun-VR");
+        
+        if (!Directory.Exists(basePath)) {
+            Directory.CreateDirectory(basePath);
+            Debug.Log($"Directorio creado en: {basePath}");
+        }
+
     }
 
     public void LoadJson(FileManager.FileNameConfig fileNames) {
 
-        // Determinar la ruta base de los archivos
-        basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "EcogFun-VR");
+        // Determinar la localización de los archivos deseados
         video1Path = Path.Combine(basePath, fileNames.video_file_names[0]);
         video2Path = Path.Combine(basePath, fileNames.video_file_names[1]);
         erroresJsonPath = Path.Combine(basePath, fileNames.errores_file_name);
@@ -43,12 +45,6 @@ public class SceneInitializer : MonoBehaviour {
         if (string.IsNullOrEmpty(video1Path) || string.IsNullOrEmpty(video2Path) || string.IsNullOrEmpty(erroresJsonPath)) {
             Debug.LogError("Una o más rutas de archivos son inválidas. Verifica el JSON de configuración.");
             return;
-        }
-
-        // Crear la carpeta si no existe
-        if (!Directory.Exists(basePath)) {
-            Directory.CreateDirectory(basePath);
-            Debug.Log($"Directorio creado en: {basePath}");
         }
 
         // Verificar y cargar los archivos
@@ -77,6 +73,12 @@ public class SceneInitializer : MonoBehaviour {
             } else { Debug.LogWarning($"El archivo JSON de errores no existe en la ruta: {erroresJsonPath}"); }
 
         } catch (Exception e) { Debug.LogError($"Error al cargar los recursos: {e.Message}"); }
+
+        StartProgram();
+
+    }
+
+    private void StartProgram() {
 
         load_data.AwakeLD();
         piechart_controller1.StartPC();

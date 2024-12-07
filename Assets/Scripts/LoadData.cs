@@ -39,14 +39,18 @@ public class LoadData : MonoBehaviour {
     private List<Outline> outlines = new List<Outline>(); // Array para almacenar los outlines de los botones.
     private Color defaultColor = Color.black; // Color del borde del botón por defecto.
     private Color selectedColor = Color.yellow; // Color del borde cuando el botón está seleccionado.
-    private int selectedButtonIndex = -1; // Índice del botón actualmente seleccionado.
+    private int selectedButtonIndex; // Índice del botón actualmente seleccionado.
 
     public void AwakeLD() {
+
+        selectedButtonIndex = -1;
 
         string json = File.ReadAllText(sceneInitializer.GetErrors()); // Cargar el archivo JSON.
         ActionList actionList = JsonUtility.FromJson<ActionList>(json); // Deserializar el JSON en una lista de acciones.
         CountActions(actionList.list); // Contar las acciones de cada tipo.
         ScrollView(actionList.list); // Llenar la lista con los elementos del JSON.
+
+        StartCoroutine(videoController.ToggleBgAfterDelay(true, 0.0f));
 
         Debug.Log("Conteo de acciones: " + string.Join(", ", actionCounts)); // Debug para mostrar el conteo de acciones.
         Debug.Log("Conteo de correctos: " + string.Join(", ", correctCounts)); // Debug para mostrar el conteo de acciones.
@@ -56,6 +60,7 @@ public class LoadData : MonoBehaviour {
     // Método para contar las acciones de cada tipo.
     void CountActions(ActionData[] actions) {
 
+        // Vaciar listas, por si estuviesen con datos
         for (int i = 0; i < actionCounts.Length; i++) { actionCounts[i] = 0; }
         for (int i = 0; i < correctCounts.Length; i++) { correctCounts[i] = 0; }
 
@@ -75,6 +80,11 @@ public class LoadData : MonoBehaviour {
 
     // Método para llenar la lista con los elementos del JSON.
     void ScrollView(ActionData[] actions) {
+
+        // Limpiar el contenido del scroll view al inicio, en caso de que haya elementos.
+        foreach (Transform child in contentPanel) { Destroy(child.gameObject); }
+        buttons.Clear();
+        outlines.Clear();
 
         int i = 0;
         int n = 0;
@@ -116,8 +126,8 @@ public class LoadData : MonoBehaviour {
                 int index = i;
                 int number = n;
                 button.onClick.AddListener(() => OnButtonClick(index, number, textFields[0].text, action.tipo, imageComponent));
-                if (action.tipo != "Omision") { button.onClick.AddListener(() => videoController.PlayFromTo(action.tiempo)); }
-                else { button.onClick.AddListener(() => videoController.Omision()); }
+                if (action.tipo != "Omision") { button.onClick.AddListener(() => videoController.PlayFromTo(action.tiempo));
+                } else { button.onClick.AddListener(() => videoController.Omision()); }
 
                 i++;
 
@@ -131,6 +141,8 @@ public class LoadData : MonoBehaviour {
 
     // Método para ejecutar lo que sucede al pulsar uno de los botones con errores.
     void OnButtonClick(int index, int number, string error_name, string error_type, Image error_color) {
+
+        if (error_type != "Omision") { StartCoroutine(videoController.ToggleBgAfterDelay(false, 0.3f)); }
 
         if (selectedButtonIndex >= 0) { outlines[selectedButtonIndex].effectColor = defaultColor; } // Revertir el color del botón previamente seleccionado.
         outlines[index].effectColor = selectedColor; // Establecer el color del botón recién seleccionado.

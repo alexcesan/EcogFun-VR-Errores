@@ -32,17 +32,17 @@ public class PiechartController : MonoBehaviour {
             counts = loadData.actionCounts; // Lectura del JSON para dividir entre seis tipos de acciones.
 
             // Textos que muestran el conteo de los eventos.
-            if (counts[0] > 1) { textCounter[0].text = counts[0].ToString() + " aciertos"; }
+            if (counts[0] != 1) { textCounter[0].text = counts[0].ToString() + " aciertos"; }
             else { textCounter[0].text = "1 acierto"; }
-            if (counts[1] > 1) { textCounter[1].text = counts[1].ToString() + " comisiones"; }
+            if (counts[1] != 1) { textCounter[1].text = counts[1].ToString() + " comisiones"; }
             else { textCounter[1].text = "1 comisión"; }
-            if (counts[2] > 1) { textCounter[2].text = counts[2].ToString() + " errores de orden"; }
+            if (counts[2] != 1) { textCounter[2].text = counts[2].ToString() + " errores de orden"; }
             else { textCounter[2].text = "1 error de orden"; }
-            if (counts[3] > 1) { textCounter[3].text = counts[3].ToString() + " roturas de normas"; }
+            if (counts[3] != 1) { textCounter[3].text = counts[3].ToString() + " roturas de normas"; }
             else { textCounter[3].text = "1 rotura de normas"; }
-            if (counts[4] > 1) { textCounter[4].text = counts[4].ToString() + " omisiones"; }
+            if (counts[4] != 1) { textCounter[4].text = counts[4].ToString() + " omisiones"; }
             else { textCounter[4].text = "1 omisión"; }
-            if (counts[5] > 1) { textCounter[5].text = counts[5].ToString() + " repeticiones"; }
+            if (counts[5] != 1) { textCounter[5].text = counts[5].ToString() + " repeticiones"; }
             else { textCounter[5].text = "1 repetición"; }
 
         } else {

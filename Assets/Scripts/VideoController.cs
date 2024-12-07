@@ -7,13 +7,10 @@ using TMPro;
 
 public class VideoController : MonoBehaviour {
 
-    // PÚBLICO - SCRIPTS //
-    public VideoPlayer videoPlayer1; // Primer VideoPlayer
-    public VideoPlayer videoPlayer2; // Segundo VideoPlayer
-
     // PÚBLICO //
-    public Button pauseButton, pausefocusButton; // Botón de pausa
-    public Button closeButton; // Botón para salir del modo pantalla completa
+    public VideoPlayer videoPlayer1, videoPlayer2; // Reproductores de vídeo
+    public GameObject background_video; // Fondos que tapan los vídeos ccuando no están disponibles.
+    public Button pauseButton, fullscreenButton, closeButton, pausefocusButton; // Botones de pausa, fullscreen y cerrado
     public TMP_InputField lapseField; // Campo para modificar notas de los errores
     public TextMeshProUGUI time_text, timefocus_text, lapsefocus_text; // Referencias a los TextMeshPro
     public RawImage background_focus; // Fondo para evitar distracciones
@@ -32,6 +29,7 @@ public class VideoController : MonoBehaviour {
     private bool isPlaying = false;
     private bool isFullScreen = false;
     public bool canReplay = false;
+    public bool firstLoad = true;
     private Vector2 originalSize1, originalPosition1; // Tamaño y posición original del primer vídeo
     private Vector2 originalSize2, originalPosition2; // Tamaño y posición original del segundo vídeo
     private float lastClickTime = 0f; // Tiempo del último clic para detectar doble clic
@@ -44,6 +42,11 @@ public class VideoController : MonoBehaviour {
         // Preparar vídeos y dejarlos listos
         videoPlayer1.Prepare();
         videoPlayer2.Prepare();
+
+        if (firstLoad) { firstLoad = false; }
+        else { SetInactive(); start_time = 0.0f; end_time = start_time + time_lapse; Pause(); }
+
+        time_text.text = $"---:---";
 
         pause_list = pauseButton.GetComponentsInChildren<RawImage>();
         pausefocus_list = pausefocusButton.GetComponentsInChildren<RawImage>();
@@ -66,9 +69,12 @@ public class VideoController : MonoBehaviour {
         else if (pause_list != null) { pause_list[0].enabled = true; pause_list[1].enabled = false; pausefocus_list[0].enabled = true; pausefocus_list[1].enabled = false; }
 
         // Actualizar el tiempo mostrado en pantalla
-        float currentTime = (float)videoPlayer1.time;
-        time_text.text = CalculateTime(currentTime);
-        timefocus_text.text = time_text.text;
+        if (isPlaying) {
+            float currentTime = (float)videoPlayer1.time;
+            time_text.text = CalculateTime(currentTime);
+            timefocus_text.text = time_text.text;
+        }
+
     }
 
     public void PlayFromTo(float init_time) {
@@ -90,6 +96,7 @@ public class VideoController : MonoBehaviour {
         PlayVideos();
         
         pauseButton.gameObject.SetActive(true);
+        fullscreenButton.gameObject.SetActive(true);
         lapseField.gameObject.SetActive(true);
 
     }
@@ -121,11 +128,16 @@ public class VideoController : MonoBehaviour {
 
     public void Omision() {
         Pause();
+        
         pauseButton.gameObject.SetActive(false);
+        fullscreenButton.gameObject.SetActive(false);
         lapseField.gameObject.SetActive(false);
+        StartCoroutine(ToggleBgAfterDelay(true, 0.0f));
+
+        time_text.text = $"---:---";
     }
 
-    public void OnVideoClick(RectTransform videoRect) {
+    public void OnVideoClick() {
         float timeSinceLastClick = Time.time - lastClickTime;
         lastClickTime = Time.time;
         if (timeSinceLastClick <= doubleClickThreshold) { ToggleFullScreen(); }
@@ -163,17 +175,39 @@ public class VideoController : MonoBehaviour {
         isFullScreen = !isFullScreen;
     }
 
+    // Mantener GameObjects desactivados al inicio
+    public void SetInactive(){
+        pauseButton.gameObject.SetActive(false);
+        fullscreenButton.gameObject.SetActive(false);
+        lapseField.gameObject.SetActive(false);
+        closeButton.gameObject.SetActive(false);
+        background_focus.gameObject.SetActive(false);
+        pausefocusButton.gameObject.SetActive(false);
+        timefocus_text.gameObject.SetActive(false);
+        lapsefocus_text.gameObject.SetActive(false);
+    }
+
     private void OnVideoPrepared(VideoPlayer source) {
         if (!isPlaying) { source.Play(); source.Pause(); }
     }
 
     private string CalculateTime(float currentTime) {
 
-        if (currentTime != 0.0f) {
-            minutes = Mathf.FloorToInt(currentTime / 60);
-            seconds = Mathf.FloorToInt(currentTime % 60);
-            return string.Format("{0:00}:{1:00}", minutes, seconds);
-        } else { return ""; }
+        minutes = Mathf.FloorToInt(currentTime / 60);
+        seconds = Mathf.FloorToInt(currentTime % 60);
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
+
+    }
+
+    // Corrutina para activar o desactivar un GameObject con un retraso
+    public IEnumerator ToggleBgAfterDelay(bool isActive, float time_wait) {
+
+        // Esperar 300 milisegundos
+        yield return new WaitForSeconds(time_wait);
+
+        // Activar o desactivar el GameObject
+        background_video.SetActive(isActive);
+
     }
 
 }
