@@ -83,8 +83,12 @@ public class VideoController : MonoBehaviour {
         start_time = init_time - (time_lapse / 2);
         end_time = init_time + (time_lapse / 2);
 
-        if (start_time <= 0.0f) { start_time = 0.0f; } // Si marca inicial es negativa
-        if (end_time >= videoPlayer1.length) { end_time = (float)videoPlayer1.length; } // Si marca final sobrepasa la duración del vídeo
+        // Comprobar si la marca inicial es negativa
+        if (start_time <= 0.0f) { start_time = 0.0f; }
+
+        // Comprobar si la marca final sobrepasa la duración de uno de los vídeos
+        if (end_time >= videoPlayer1.length || end_time >= videoPlayer2.length) { end_time = (float)Mathf.Min((float)videoPlayer1.length, (float)videoPlayer2.length); }
+
 
         // Desactivar el bucle temporalmente si estamos fuera del rango
         if (videoPlayer1.time >= end_time || videoPlayer2.time >= end_time) { canReplay = false; }

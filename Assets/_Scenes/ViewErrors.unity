@@ -2599,7 +2599,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -287.7975, y: 90.48999}
+  m_AnchoredPosition: {x: -287.79742, y: 90.48999}
   m_SizeDelta: {x: -633.18506, y: -207.99}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &655911925
@@ -3358,8 +3358,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 759859701}
   m_HandleRect: {fileID: 759859700}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.99989325
+  m_Value: 0
+  m_Size: 0.9999734
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3455,7 +3455,7 @@ VideoPlayer:
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
   m_RenderMode: 2
-  m_AspectRatio: 2
+  m_AspectRatio: 5
   m_DataSource: 1
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
@@ -4442,7 +4442,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -6, y: 0.004386902}
+  m_AnchoredPosition: {x: -6, y: 0.007331848}
   m_SizeDelta: {x: 183, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1123576218

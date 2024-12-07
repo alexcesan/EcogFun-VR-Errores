@@ -142,7 +142,7 @@ public class LoadData : MonoBehaviour {
     // Método para ejecutar lo que sucede al pulsar uno de los botones con errores.
     void OnButtonClick(int index, int number, string error_name, string error_type, Image error_color) {
 
-        if (error_type != "Omision") { StartCoroutine(videoController.ToggleBgAfterDelay(false, 0.3f)); }
+        if (error_type != "Omision") { StartCoroutine(videoController.ToggleBgAfterDelay(false, 0.35f)); }
 
         if (selectedButtonIndex >= 0) { outlines[selectedButtonIndex].effectColor = defaultColor; } // Revertir el color del botón previamente seleccionado.
         outlines[index].effectColor = selectedColor; // Establecer el color del botón recién seleccionado.
