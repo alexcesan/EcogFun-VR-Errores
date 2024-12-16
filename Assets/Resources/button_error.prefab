@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 43.9, y: -15.29}
+  m_AnchoredPosition: {x: 47, y: -15.29}
   m_SizeDelta: {x: 8.4, y: 9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8701537617297005540
@@ -106,8 +106,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -22.6, y: -21.1}
-  m_SizeDelta: {x: 0, y: -8.4}
+  m_AnchoredPosition: {x: -22.150002, y: -21.1}
+  m_SizeDelta: {x: -0.8999996, y: -8.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6292905587896741089
 CanvasRenderer:
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 8
+  m_fontStyle: 9
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -240,8 +240,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -6.8, y: 6.600001}
-  m_SizeDelta: {x: -147.99998, y: 2.7999978}
+  m_AnchoredPosition: {x: -0.025001526, y: 7.230299}
+  m_SizeDelta: {x: 85.0459, y: -2.7314}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3648194697384766318
 CanvasRenderer:
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Guardar en mochila las pruebas pruebas pruebas
+  m_text: Este es un ejemplo de texto para pruebas
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -304,11 +304,11 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 16
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -5.5
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -105.593094, y: 1.7283497, z: -122.61614, w: 4.121971}
+  m_margin: {x: -0.5958557, y: 0.26390266, z: 0.6000366, w: -0.27139094}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,14 +14,32 @@ public class PiechartController : MonoBehaviour {
     // PÚBLICO //
     public Image[] imagesPieChart;
     public TextMeshProUGUI[] textCounter;
-    // piechart_1 - 0: Correctas | 1: Comisión | 2: Orden | 3: Normas | 4: Omisión | 5: Repetición
-    // piechart_2 - 0: Aciertos | 1: Fallos
+    // piechart_1 -> 0: Correctas | 1: Comisión | 2: Orden | 3: Normas | 4: Omisión | 5: Repetición
+    // piechart_2 -> 0: Aciertos | 1: Fallos
 
     // PRIVADO //
-    private int[] counts = new int[6];
-    private float[] listPercentage = new float[6];
+    private int[] counts = new int[5];
+    private float[] listPercentage = new float[5];
+    private bool allCompleted = false;
+
+void Update() {
+
+    // Animación para rellenar el gráfico.
+    if (!allCompleted) {
+        for (int i = 0; i < imagesPieChart.Length; i++) {
+            float currentFillAmount = imagesPieChart[i].fillAmount;
+            imagesPieChart[i].fillAmount = Mathf.Min(currentFillAmount + 0.011f, listPercentage[i]);
+        }
+    }
+
+    allCompleted = imagesPieChart.Select((image, index) => image.fillAmount == listPercentage[index]).All(isFilled => isFilled);
+
+}
 
     public void StartPC() {
+
+        for (int i = 0; i < imagesPieChart.Length; i++) { imagesPieChart[i].fillAmount = 0.0f; }
+        allCompleted = false;
 
         GameObject pieChart = this.gameObject;
 
@@ -31,47 +50,35 @@ public class PiechartController : MonoBehaviour {
 
             counts = loadData.actionCounts; // Lectura del JSON para dividir entre seis tipos de acciones.
 
+            string[] singularTexts = { "comisión", "error de orden", "rotura de normas", "omisión", "repetición" };
+            string[] pluralTexts = { "comisiones", "errores de orden", "roturas de normas", "omisiones", "repeticiones" };
+
             // Textos que muestran el conteo de los eventos.
-            if (counts[0] != 1) { textCounter[0].text = counts[0].ToString() + " aciertos"; }
-            else { textCounter[0].text = "1 acierto"; }
-            if (counts[1] != 1) { textCounter[1].text = counts[1].ToString() + " comisiones"; }
-            else { textCounter[1].text = "1 comisión"; }
-            if (counts[2] != 1) { textCounter[2].text = counts[2].ToString() + " errores de orden"; }
-            else { textCounter[2].text = "1 error de orden"; }
-            if (counts[3] != 1) { textCounter[3].text = counts[3].ToString() + " roturas de normas"; }
-            else { textCounter[3].text = "1 rotura de normas"; }
-            if (counts[4] != 1) { textCounter[4].text = counts[4].ToString() + " omisiones"; }
-            else { textCounter[4].text = "1 omisión"; }
-            if (counts[5] != 1) { textCounter[5].text = counts[5].ToString() + " repeticiones"; }
-            else { textCounter[5].text = "1 repetición"; }
+            for (int i = 0; i < counts.Length; i++) {
+                textCounter[i].text = counts[i] == 1
+                    ? $"1 {singularTexts[i]}"
+                    : $"{counts[i]} {pluralTexts[i]}";
+            }
 
         } else {
         
             counts = loadData.correctCounts; // Lectura del JSON para dividir entre aciertos y fallos.
 
+            string[] singularTexts = { "acierto", "fallo"};
+            string[] pluralTexts = { "aciertos", "fallos"};
+
             // Textos que muestran el conteo de los eventos.
-            if (counts[0] > 1) { textCounter[0].text = counts[0].ToString() + " aciertos"; }
-            else { textCounter[0].text = "1 acierto"; }
-            if (counts[1] > 1) { textCounter[1].text = counts[1].ToString() + " fallos"; }
-            else { textCounter[1].text = "1 fallo"; }
+            for (int i = 0; i < counts.Length; i++) {
+                textCounter[i].text = counts[i] == 1
+                    ? $"1 {singularTexts[i]}"
+                    : $"{counts[i]} {pluralTexts[i]}";
+            }
 
         }
 
         // Y calculamos el porcentaje que deberá rellenar cada trozo del gráfico.
         SetValues(counts);
         
-    }
-
-    void Update() {
-
-        // Animación para rellenar el gráfico.
-        for(int i = 0; i < imagesPieChart.Length; i++) {
-            float currentFillAmount = imagesPieChart[i].fillAmount;
-            
-            //imagesPieChart[i].fillAmount = Mathf.Lerp(currentFillAmount, listPercentage[i], Time.deltaTime * 3.6f); // Versión 1.
-            imagesPieChart[i].fillAmount = Mathf.Min(currentFillAmount + 0.011f, listPercentage[i]); // Versión 2.
-        }
-
     }
 
     void SetValues(int[] values) {

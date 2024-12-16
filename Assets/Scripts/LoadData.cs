@@ -20,7 +20,7 @@ public class LoadData : MonoBehaviour {
 
     // PÚBLICO - OCULTO EN EL INSPECTOR //
     [HideInInspector]
-    public int[] actionCounts = new int[6]; // Array para almacenar el conteo de cada tipo de acción.
+    public int[] actionCounts = new int[5]; // Array para almacenar el conteo de cada tipo de acción.
 
     [HideInInspector]
     public int[] correctCounts = new int[2]; // Array para almacenar el conteo de cada tipo de acción (aciertos y fallos).
@@ -52,9 +52,6 @@ public class LoadData : MonoBehaviour {
 
         StartCoroutine(videoController.ToggleBgAfterDelay(true, 0.0f));
 
-        Debug.Log("Conteo de acciones: " + string.Join(", ", actionCounts)); // Debug para mostrar el conteo de acciones.
-        Debug.Log("Conteo de correctos: " + string.Join(", ", correctCounts)); // Debug para mostrar el conteo de acciones.
-
     }
 
     // Método para contar las acciones de cada tipo.
@@ -66,15 +63,18 @@ public class LoadData : MonoBehaviour {
 
         foreach (ActionData action in actions) {
             switch (action.tipo) {
-                case "Correcto": actionCounts[0]++; correctCounts[0]++; break;
-                case "Comision": actionCounts[1]++; correctCounts[1]++; break;
-                case "Orden": actionCounts[2]++; correctCounts[1]++; break;
-                case "Romper las normas": actionCounts[3]++; correctCounts[1]++; break;
-                case "Omision": actionCounts[4]++; correctCounts[1]++; break;
-                case "Repeticion": actionCounts[5]++; correctCounts[1]++; break;
+                case "Correcto": correctCounts[0]++; break;
+                case "Comision": actionCounts[0]++; correctCounts[1]++; break;
+                case "Orden": actionCounts[1]++; correctCounts[1]++; break;
+                case "Romper las normas": actionCounts[2]++; correctCounts[1]++; break;
+                case "Omision": actionCounts[3]++; correctCounts[1]++; break;
+                case "Repeticion": actionCounts[4]++; correctCounts[1]++; break;
                 default: Debug.LogWarning("Tipo de acción no reconocido: " + action.tipo); break;
             }
         }
+
+        Debug.Log("Conteo de acciones: " + string.Join(", ", actionCounts)); // Debug para mostrar el conteo de acciones.
+        Debug.Log("Conteo de correctos: " + string.Join(", ", correctCounts)); // Debug para mostrar el conteo de acciones.
 
     }
 

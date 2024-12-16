@@ -25,7 +25,7 @@ public class SceneInitializer : MonoBehaviour {
     
         video_controller.SetInactive();
     
-        // Determinar la ruta de la carpeta donde están los archivos (y crearla si no existe)
+        // Determinar la ruta de la carpeta donde están los archivos (y crearla si no existe).
         basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "EcogFun-VR");
         
         if (!Directory.Exists(basePath)) {
@@ -37,7 +37,7 @@ public class SceneInitializer : MonoBehaviour {
 
     public void LoadJson(FileManager.FileNameConfig fileNames) {
 
-        // Determinar la localización de los archivos deseados
+        // Determinar la localización de los archivos deseados.
         video1Path = Path.Combine(basePath, fileNames.video_file_names[0]);
         video2Path = Path.Combine(basePath, fileNames.video_file_names[1]);
         erroresJsonPath = Path.Combine(basePath, fileNames.errores_file_name);
@@ -47,7 +47,7 @@ public class SceneInitializer : MonoBehaviour {
             return;
         }
 
-        // Verificar y cargar los archivos
+        // Verificar y cargar los archivos.
         LoadResources();
 
     }
@@ -55,22 +55,22 @@ public class SceneInitializer : MonoBehaviour {
     private void LoadResources() {
 
         try {
-            // Cargar el primer vídeo
+
+            // Cargar el primer vídeo.
             if (File.Exists(video1Path)) {
                 videoPlayer1.url = video1Path;
                 Debug.Log($"Vídeo 1 cargado correctamente desde: {video1Path}");
             } else { Debug.LogWarning($"El archivo de vídeo 1 no existe en la ruta: {video1Path}"); }
 
-            // Cargar el segundo vídeo
+            // Cargar el segundo vídeo.
             if (File.Exists(video2Path)) {
                 videoPlayer2.url = video2Path;
                 Debug.Log($"Vídeo 2 cargado correctamente desde: {video2Path}");
             } else { Debug.LogWarning($"El archivo de vídeo 2 no existe en la ruta: {video2Path}"); }
 
-            // Cargar el archivo JSON de errores
-            if (File.Exists(erroresJsonPath)) {
-                Debug.Log("Archivo JSON de errores cargado correctamente.");
-            } else { Debug.LogWarning($"El archivo JSON de errores no existe en la ruta: {erroresJsonPath}"); }
+            // Comprobación de carga exitosa del archivo JSON de errores.
+            if (File.Exists(erroresJsonPath)) { Debug.Log("Archivo JSON de errores cargado correctamente."); }
+            else { Debug.LogWarning($"El archivo JSON de errores no existe en la ruta: {erroresJsonPath}"); }
 
         } catch (Exception e) { Debug.LogError($"Error al cargar los recursos: {e.Message}"); }
 
@@ -78,6 +78,7 @@ public class SceneInitializer : MonoBehaviour {
 
     }
 
+    // Lanzamiento secuencial de comportamientos del visualizador de errores.
     private void StartProgram() {
 
         load_data.AwakeLD();
@@ -88,7 +89,7 @@ public class SceneInitializer : MonoBehaviour {
 
     }
 
-    // Getter para acceder al contenido del JSON de errores
+    // Getter para acceder al contenido del JSON de errores.
     public string GetErrors() { return erroresJsonPath; }
 
 }
